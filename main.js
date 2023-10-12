@@ -13,7 +13,7 @@ function update(id, content) {
 var mainGameLoop = window.setInterval(function() {
   diff = Date.now() - gameData.lastTick;
   gameData.lastTick = Date.now()
-  gameData.suctionPower += gameData.absorbedPerClick * (diff / 1000)
+  gameData.suctionPower += Math.floor(gameData.absorbedPerClick * (diff / 1000))
   update("suctioned", gameData.suctionPower + " Absorbed")
 }, 1000)
 
