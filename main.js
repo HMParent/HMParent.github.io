@@ -2,12 +2,12 @@ var gameData = {
     gold: 0,
     goldPerClick: 1,
     goldPerClickCost: 10,
-    lastTick: Date.now()
+    lastTick: performance.now()
   }
 
 var mainGameLoop = window.setInterval(function() {
-    diff = Date.now() - gameData.lastTick;
-    gameData.lastTick = Date.now() // Don't forget to update lastTick.
+    diff = performance.now() - gameData.lastTick;
+    gameData.lastTick = performance.now() // Don't forget to update lastTick.
     gameData.gold += gameData.goldPerClick * (diff / 1000) // divide diff by how often (ms) mainGameLoop is ran
     document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
 }, 1000)
@@ -16,7 +16,7 @@ var gameData = {
     gold: 0,
     goldPerClick: 1,
     goldPerClickCost: 10,
-    lastTick: Date.now()
+    lastTick: performance.now()
 }
   
 function update(id, content) {
@@ -39,8 +39,8 @@ function buyGoldPerClick() {
 }
   
 var mainGameLoop = window.setInterval(function() {
-    diff = Date.now() - gameData.lastTick;
-    gameData.lastTick = Date.now()
+    diff = performance.now() - gameData.lastTick;
+    gameData.lastTick = performance.now()
     gameData.gold += gameData.goldPerClick * (diff / 1000)
     update("goldMined", gameData.gold + " Gold Mined")
 }, 1000)
