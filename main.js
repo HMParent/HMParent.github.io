@@ -3,7 +3,7 @@ var gameData = {
   suctionPower: 0,
   absorbedPerClick: 1,
   goldPerClickCost: 10,
-  lastTick: performance.now()
+  lastTick: Date.now()
 }
 
 function update(id, content) {
@@ -11,10 +11,10 @@ function update(id, content) {
 }
 
 var mainGameLoop = window.setInterval(function() {
-  diff = performance.now() - gameData.lastTick;
-  gameData.lastTick = performance.now()
+  diff = Date.now() - gameData.lastTick;
+  gameData.lastTick = Date.now()
   gameData.suctionPower += gameData.absorbedPerClick * (diff / 1000)
-  update("suctioned", gameData.suctionPower + " suctionPower Absorbed")
+  update("suctioned", gameData.suctionPower + " Absorbed")
 }, 1000)
 
 var saveGameLoop = window.setInterval(function() {
