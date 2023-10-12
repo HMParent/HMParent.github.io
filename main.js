@@ -1,7 +1,7 @@
 var saveGame = localStorage.getItem('goldMinerSave')
 var gameData = {
-  gold: 0,
-  goldPerClick: 1,
+  suctionPower: 0,
+  absorbedPerClick: 1,
   goldPerClickCost: 10,
   lastTick: performance.now()
 }
@@ -10,26 +10,26 @@ function update(id, content) {
   document.getElementById(id).innerHTML = content;
 }
 
-function mineGold() {
-  gameData.gold += gameData.goldPerClick
-  update("goldMined", gameData.gold + " Gold Mined")
+function selfAbsorb() {
+  gameData.suctionPower += gameData.absorbedPerClick
+  update("suctioned", gameData.suctionPower + " suctionPower Absorbed")
 }
 
-function buyGoldPerClick() {
-  if (gameData.gold >= gameData.goldPerClickCost) {
-    gameData.gold -= gameData.goldPerClickCost
-    gameData.goldPerClick += 1
+function buySuctionPerClick() {
+  if (gameData.suctionPower >= gameData.goldPerClickCost) {
+    gameData.suctionPower -= gameData.goldPerClickCost
+    gameData.absorbedPerClick += 1
     gameData.goldPerClickCost *= 2
-    update("goldMined", gameData.gold + " Gold Mined")
-    update("perClickUpgrade", "Upgrade Pickaxe (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold")
+    update("suctioned", gameData.suctionPower + " suctionPower Absorbed")
+    update("perClickUpgrade", "Upgrade Pickaxe (Currently Level " + gameData.absorbedPerClick + ") Cost: " + gameData.goldPerClickCost + " suctionPower")
   }
 }
 
 var mainGameLoop = window.setInterval(function() {
   diff = performance.now() - gameData.lastTick;
   gameData.lastTick = performance.now()
-  gameData.gold += gameData.goldPerClick * (diff / 1000)
-  update("goldMined", gameData.gold + " Gold Mined")
+  gameData.suctionPower += gameData.absorbedPerClick * (diff / 1000)
+  update("suctioned", gameData.suctionPower + " suctionPower Absorbed")
 }, 1000)
 
 var saveGameLoop = window.setInterval(function() {
@@ -45,8 +45,8 @@ function format(number, type) {
 }
 
 
-if (typeof saveGame.gold !== "undefined") gameData.gold = saveGame.gold;
-if (typeof saveGame.goldPerClick !== "undefined") gameData.goldPerClick = saveGame.goldPerClick;
+if (typeof saveGame.suctionPower !== "undefined") gameData.suctionPower = saveGame.suctionPower;
+if (typeof saveGame.absorbedPerClick !== "undefined") gameData.absorbedPerClick = saveGame.absorbedPerClick;
 if (typeof saveGame.goldPerClickCost !== "undefined") gameData.goldPerClickCost = saveGame.goldPerClickCost;
 if (typeof saveGame.lastTick !== "undefined") gameData.lastTick = saveGame.lastTick;
 
